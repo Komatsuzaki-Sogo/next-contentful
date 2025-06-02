@@ -3,25 +3,117 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* MARGIN */
+  --margin-section: 64px;
+
+  /* FONT-WEIGHT */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+
+  /* box-shadow */
+  --box-shadow: 5px 5px 6px #7d7d7d33;
+
+  /* FOREGROUND */
+  --color-foreground-light: #fff;
+  --color-foreground-gray: #6e6e6e;
+  --color-foreground-dark: #333;
+
+  /* BACKGROUND */
+  --color-background-light: #fff;
+  --color-background-dark: #333;
+  --color-background-black: #191b1f;
+  --color-background-gray: #f6f6f6;
+
+  /* ROLE DANGER */
+  --color-role-danger-dark: #c00;
+
+  /* TRANSITION */
+  --transition: .4s cubic-bezier(.25,.8,.25,1);
+
+  /* BORDER */
+  --color-outline-white: #fff;
+  --color-outline-gray: #AEB2B2;
+  --color-outline-dark: #333;
+
+  /* BORDER RADIUS */
+  --border-radius-circle: 1000px;
+
+  /* OPACITY */
+  --opacity: .7;
+
+  /* HEADER HEIGHT */
+  --header-height: 62px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  font-size: 62.5%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+  font-family: var(--font-noto-sans-jp);
+  font-size: 1.6rem;
+  font-weight: var(--font-weight-normal);
+  line-height: 1.5;
+  color: var(--color-foreground-dark);
+  overflow-wrap: break-word;
+  background-color: var(--color-background-light);
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+header {
+  height: var(--header-height);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+em,
+b,
+strong {
+  font-weight: var(--font-weight-bold);
+}
+
+strong {
+  color: var(--color-role-danger-dark);
+}
+
+a {
+  display: block;
+  color: var(--color-foreground-dark);
+  text-decoration: none;
+  transition: var(--opacity) var(--transition);
+}
+
+a:hover {
+  opacity: var(--opacity);
+}
+
+
+button {
+  padding: 0;
+  appearance: none;
+  cursor: pointer;
+  outline: none;
+  background-color: transparent;
+  border: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
 }
