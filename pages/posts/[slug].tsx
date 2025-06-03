@@ -3,17 +3,26 @@ import { client } from '@/libs/contentful';
 import { Entry } from 'contentful';
 import { PostSkeleton } from '@/types/post';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+import { useRouter } from 'next/router';
+import { BaseHeadingLevel1 } from '@/components/BaseHeadingLevel1';
+import type { Document as RichTextDocument } from '@contentful/rich-text-types';
 
 interface Props {
   post: Entry<PostSkeleton>;
 }
 
 export default function PostDetail({ post }: Props) {
+  const router = useRouter();
+
+  if (router.isFallback) {
+    return <div>読み込み中...</div>;
+  }
+
   return (
     <main>
-      <h1>{String(post.fields.title)}</h1>
-      <p>作成日: {new Date(post.sys.createdAt).toLocaleDateString()}</p>
-      <div>{documentToReactComponents(post.fields.content)}</div>
+      <BaseHeadingLevel1 variant="article">{String(post.fields.title)}</BaseHeadingLevel1>
+      <p>公開日: {new Date(post.sys.createdAt).toLocaleDateString()}</p>
+      <div>{documentToReactComponents(post.fields.content as unknown as RichTextDocument)}</div>
     </main>
   );
 }
@@ -29,18 +38,23 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths,
-    fallback: false, // 404を表示する
+    fallback: true,
   };
 };
 
 export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   const slug = params?.slug;
 
+  if (typeof slug !== 'string') {
+    return { notFound: true };
+  }
+
   const response = await client.getEntries<PostSkeleton>({
     content_type: 'post',
     limit: 1,
-    'fields.slug': slug,
-  });
+    ['fields.slug']: slug,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } as any);
 
   const post = response.items[0];
 
