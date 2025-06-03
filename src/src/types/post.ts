@@ -1,12 +1,13 @@
+import { EntrySkeletonType } from 'contentful';
 import { Document } from '@contentful/rich-text-types';
 
-export type Post = {
-  id: string;
+export interface IPostFields {
   title: string;
   slug: string;
-  content: Document;
-  publishedDate: string;
-};
+  body: Document;
+}
+
+export type PostSkeleton = EntrySkeletonType<IPostFields, 'post'>;
 
 // データ
 // {
