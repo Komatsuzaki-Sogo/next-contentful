@@ -6,6 +6,7 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { useRouter } from 'next/router';
 import { BaseHeadingLevel1 } from '@/components/BaseHeadingLevel1';
 import type { Document as RichTextDocument } from '@contentful/rich-text-types';
+import { PostDate } from '@/components/PostDate';
 
 interface Props {
   post: Entry<PostSkeleton>;
@@ -21,7 +22,7 @@ export default function PostDetail({ post }: Props) {
   return (
     <main>
       <BaseHeadingLevel1 variant="article">{String(post.fields.title)}</BaseHeadingLevel1>
-      <p>公開日: {new Date(post.sys.createdAt).toLocaleDateString()}</p>
+      <p>公開日: <PostDate date={post.sys.createdAt} /></p>
       <div>{documentToReactComponents(post.fields.content as unknown as RichTextDocument)}</div>
     </main>
   );
