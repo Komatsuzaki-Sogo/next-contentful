@@ -15,7 +15,7 @@ export const PostDate: FC<Props> = ({ date }) => {
   const tokyoTime = dayjs(date).tz('Asia/Tokyo');
   return (
     <time dateTime={date} className="text-gray-500 block">
-      {tokyoTime.format('YYYY/MM/DD HH:mm')}
+      {tokyoTime.format('YYYY/MM/DD')}
     </time>
   );
 };
