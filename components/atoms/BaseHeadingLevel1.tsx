@@ -6,7 +6,7 @@ const headingVariants = cva('leading-tight block', {
   variants: {
     variant: {
       default: 'text-3xl text-center font-semibold',
-      article: 'text-2xl font-bold border-b border-black border-black pb-[8px]',
+      article: 'text-3xl font-bold border-b border-black border-black pb-[8px]',
     },
   },
   defaultVariants: {

@@ -2,8 +2,8 @@ import { GetStaticProps } from 'next';
 import { client } from '@/libs/contentful';
 import { Entry} from 'contentful';
 import type { PostSkeleton } from '@/types/post'
-import { BaseHeadingLevel1 } from '@/components/BaseHeadingLevel1';
-import { PostList } from '@/components/PostList';
+import { BaseHeadingLevel1 } from '@/components/atoms/BaseHeadingLevel1';
+import { PostList } from '@/components/molecules/PostList';
 
 interface Props {
   posts: Entry<PostSkeleton>[];
@@ -11,10 +11,10 @@ interface Props {
 
 export default function Home({ posts }: Props) {
   return (
-    <main>
+    <div>
       <BaseHeadingLevel1>記事一覧</BaseHeadingLevel1>
       <PostList posts={posts} />
-    </main>
+    </div>
   );
 }
 

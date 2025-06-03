@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Entry } from 'contentful';
 import type { PostSkeleton } from '@/types/post';
-import { PostDate } from './PostDate';
+import { PostDate } from '../atoms/PostDate';
 
 const PostListItem = ({ post }: { post: Entry<PostSkeleton> }) => {
   return (
