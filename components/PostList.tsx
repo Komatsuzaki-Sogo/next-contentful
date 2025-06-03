@@ -1,13 +1,19 @@
 import Link from 'next/link';
 import { Entry } from 'contentful';
 import type { PostSkeleton } from '@/types/post';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 const PostListItem = ({ post }: { post: Entry<PostSkeleton> }) => {
   return (
     <li className="border-b border-gray-200 pb-4 hover:bg-gray-50 transition-colors">
       <Link href={`/posts/${post.fields.slug}`} className="block">
         <time dateTime={post.sys.createdAt} className="text-sm text-gray-500 mt-1">
-          {new Date(post.sys.createdAt).toLocaleDateString()}
+          {dayjs(post.sys.createdAt).tz('Asia/Tokyo').format('YYYY/MM/DD HH:mm')}
         </time>
         <b className="block text-xl font-semibold">
           {post.fields.title.toString()}
