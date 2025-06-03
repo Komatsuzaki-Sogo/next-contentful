@@ -21,7 +21,7 @@ export default function PostDetail({ post }: Props) {
   return (
     <main>
       <BaseHeadingLevel1 variant="article">{String(post.fields.title)}</BaseHeadingLevel1>
-      {/* <p>公開日: {new Date(post.sys.createdAt).toLocaleDateString()}</p> */}
+      <p>公開日: {new Date(post.sys.createdAt).toLocaleDateString()}</p>
       <div>{documentToReactComponents(post.fields.content as unknown as RichTextDocument)}</div>
     </main>
   );
