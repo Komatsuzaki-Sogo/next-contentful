@@ -14,12 +14,12 @@ const headingVariants = cva('text-3xl leading-tight block', {
   },
 });
 
-type HeadingProps = {
+type Props = {
   children: ReactNode;
   className?: string;
 } & VariantProps<typeof headingVariants>;
 
-export const BaseHeadingLevel1 = ({ children, variant, className }: HeadingProps) => {
+export const BaseHeadingLevel1 = ({ children, variant, className }: Props) => {
   return (
     <h1 className={clsx(headingVariants({ variant }), className)}>
       {children}

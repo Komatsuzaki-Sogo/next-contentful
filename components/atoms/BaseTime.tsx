@@ -2,8 +2,6 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 
-import { FC } from 'react';
-
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -11,7 +9,7 @@ type Props = {
   date: string;
 };
 
-export const BaseTime: FC<Props> = ({ date }) => {
+export const BaseTime = ({ date }: Props) => {
   const tokyoTime = dayjs(date).tz('Asia/Tokyo');
   return (
     <time dateTime={date} className="text-gray-500 block">

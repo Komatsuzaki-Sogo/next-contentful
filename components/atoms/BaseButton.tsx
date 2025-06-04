@@ -1,9 +1,8 @@
 'use client';
 
-import React from 'react';
 import clsx from 'clsx';
 
-type ButtonProps = {
+type Props = {
   children: React.ReactNode;
   onClick?: () => void;
   type?: 'button' | 'submit' | 'reset';
@@ -11,13 +10,13 @@ type ButtonProps = {
   disabled?: boolean;
 };
 
-export const BaseButton: React.FC<ButtonProps> = ({
+export const BaseButton = ({
   children,
   onClick,
   type = 'button',
   className = '',
   disabled = false,
-}) => {
+}: Props) => {
   return (
     <button
       type={type}
