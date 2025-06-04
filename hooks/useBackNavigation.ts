@@ -5,13 +5,15 @@ export const useBackNavigation = () => {
 
   return () => {
     if (typeof window !== 'undefined') {
-      const hasHistory = window.history.length > 1;
+      const referrer = document.referrer;
 
-      if (hasHistory) {
+      const cameFromSameDomain = referrer && new URL(referrer).origin === window.location.origin;
+
+      if (cameFromSameDomain) {
         router.back();
       } else {
         router.push('/');
       }
     }
   };
-}
+};
