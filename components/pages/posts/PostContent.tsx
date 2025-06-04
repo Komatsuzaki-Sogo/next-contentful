@@ -1,5 +1,5 @@
 import { Entry } from 'contentful';
-import type { PostSkeleton } from '@/types/post';
+import { PostSkeleton } from '@/types/post';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import type { Document as RichTextDocument } from '@contentful/rich-text-types';
 import { BaseTime } from '@/components/atoms/BaseTime';

@@ -1,19 +1,16 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { client } from '@/libs/contentful';
 import { Entry } from 'contentful';
-import { PostSkeleton, PostCategorySkeleton } from '@/types/post';
+import { PostSkeleton } from '@/types/post';
 import { useRouter } from 'next/router';
-import { BaseHeadingLevel1 } from '@/components/atoms/BaseHeadingLevel1';
-import { PostContent } from '@/components/molecules/PostContent';
-import { BaseLabel } from '@/components/atoms/BaseLabel';
+import { PostContent } from '@/components/pages/posts/PostContent';
+import { PostHeading } from '@/components/pages/posts/PostHeading';
 
 interface Props {
   post: Entry<PostSkeleton>;
 }
 
 const PostArticle = ({ post }: Props) => {
-  const category = post.fields.postCategory as unknown as Entry<PostCategorySkeleton>;
-    const categoryTitle = category?.fields?.title;
   const router = useRouter();
 
   if (router.isFallback) {
@@ -22,8 +19,7 @@ const PostArticle = ({ post }: Props) => {
 
   return (
     <div>
-      <BaseLabel text={categoryTitle.toString()} />
-      <BaseHeadingLevel1 variant="article">{String(post.fields.title)}</BaseHeadingLevel1>
+      <PostHeading post={post} />
       <PostContent post={post} />
     </div>
   );
