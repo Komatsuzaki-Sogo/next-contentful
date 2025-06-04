@@ -5,9 +5,9 @@ export const useBackNavigation = () => {
 
   return () => {
     if (typeof window !== 'undefined') {
-      const isInternalReferrer = document.referrer.startsWith(window.location.origin);
+      const hasHistory = window.history.length > 1;
 
-      if (isInternalReferrer) {
+      if (hasHistory) {
         router.back();
       } else {
         router.push('/');
