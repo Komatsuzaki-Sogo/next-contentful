@@ -1,0 +1,23 @@
+# EditorConfig: http://editorconfig.org/
+# 各種エディタに以下をインストールしてください。
+# 例：EditorConfig for VS Code https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig
+
+# プロジェクトで以下の設定を利用するか指定します。※falseの場合は、プロジェクトから遡って見つかったファイルを利用します。
+root = true
+
+# 以下はファイルごとに改行をつけたUnixスタイルの設定です。
+[*]
+end_of_line = lf
+trim_trailing_whitespace = true
+
+# 基本エンコードはutf-8
+charset = utf-8
+
+# タブはtab利用、サイズは2。
+indent_style = space
+indent_size = 2
+
+# その他、拡張子ごとに指定することができます。
+# Markdownファイルの設定。
+[*.md]
+trim_trailing_whitespace = false
