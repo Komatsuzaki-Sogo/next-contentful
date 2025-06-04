@@ -17,7 +17,7 @@ interface Props {
 const CategoryPage = ({ posts, categories, currentCategorySlug }: Props) => {
   return (
     <div>
-      <BaseHeadingLevel1>カテゴリ: {currentCategorySlug}</BaseHeadingLevel1>
+      <BaseHeadingLevel1>{currentCategorySlug}の記事一覧</BaseHeadingLevel1>
       <CategoryList categories={categories} />
       <PostList posts={posts} />
     </div>
