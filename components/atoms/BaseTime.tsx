@@ -11,7 +11,7 @@ type Props = {
   date: string;
 };
 
-export const PostDate: FC<Props> = ({ date }) => {
+export const BaseTime: FC<Props> = ({ date }) => {
   const tokyoTime = dayjs(date).tz('Asia/Tokyo');
   return (
     <time dateTime={date} className="text-gray-500 block">

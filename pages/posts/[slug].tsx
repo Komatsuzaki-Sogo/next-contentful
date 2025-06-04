@@ -1,16 +1,19 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { client } from '@/libs/contentful';
 import { Entry } from 'contentful';
-import { PostSkeleton } from '@/types/post';
+import { PostSkeleton, PostCategorySkeleton } from '@/types/post';
 import { useRouter } from 'next/router';
 import { BaseHeadingLevel1 } from '@/components/atoms/BaseHeadingLevel1';
 import { PostContent } from '@/components/molecules/PostContent';
+import { BaseLabel } from '@/components/atoms/BaseLabel';
 
 interface Props {
   post: Entry<PostSkeleton>;
 }
 
-export default function PostDetail({ post }: Props) {
+const PostArticle = ({ post }: Props) => {
+  const category = post.fields.postCategory as unknown as Entry<PostCategorySkeleton>;
+    const categoryTitle = category?.fields?.title;
   const router = useRouter();
 
   if (router.isFallback) {
@@ -19,11 +22,14 @@ export default function PostDetail({ post }: Props) {
 
   return (
     <div>
+      <BaseLabel text={categoryTitle.toString()} />
       <BaseHeadingLevel1 variant="article">{String(post.fields.title)}</BaseHeadingLevel1>
       <PostContent post={post} />
     </div>
   );
 }
+
+export default PostArticle;
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const response = await client.getEntries<PostSkeleton>({
@@ -50,7 +56,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   const response = await client.getEntries<PostSkeleton>({
     content_type: 'post',
     limit: 1,
-    ['fields.slug']: slug,
+    'fields.slug': slug,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } as any);
 
