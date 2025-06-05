@@ -1,5 +1,5 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-import { client } from '@/libs/contentful';
+import { client } from '@/libs/client';
 import { Entry } from 'contentful';
 import { PostSkeleton } from '@/types/post';
 import { useRouter } from 'next/router';

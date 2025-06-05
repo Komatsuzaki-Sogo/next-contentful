@@ -23,7 +23,7 @@ const PostListItem = ({ post }: { post: Entry<PostSkeleton> }) => {
 };
 
 type Props = {
-    posts: Entry<PostSkeleton>[];
+  posts: Entry<PostSkeleton>[];
 };
 
 export const PostList = ({ posts }: Props) => {

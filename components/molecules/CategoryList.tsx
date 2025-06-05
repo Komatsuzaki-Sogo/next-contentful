@@ -3,14 +3,13 @@ import { Entry } from 'contentful';
 import Link from 'next/link';
 import type { PostCategorySkeleton } from '@/types/post';
 
-interface Props {
+type Props = {
   categories: Entry<PostCategorySkeleton>[];
 }
 
 export const CategoryList = ({ categories }: Props) => {
   const router = useRouter();
-  const currentPath = router.asPath;
-  const isRootCurrent = router.pathname === '/'
+  const isRootMatch = router.pathname.startsWith('/page');
 
   return (
     <div className='mt-8 flex gap-4 flex-col md:flex-row'>
@@ -19,9 +18,8 @@ export const CategoryList = ({ categories }: Props) => {
         <li>
           <Link
             href='/'
-            aria-current={isRootCurrent ? true : undefined}
             className={`inline-block text-sm font-bold border border-black px-3 py-1 rounded-md transition ${
-              isRootCurrent
+              isRootMatch
                 ? 'bg-black text-white pointer-events-none'
                 : 'bg-white text-black hover:bg-black hover:text-white'
             }`}
@@ -31,15 +29,14 @@ export const CategoryList = ({ categories }: Props) => {
         {categories.map((category) => {
           const slug = category.fields.slug;
           const href = `/category/${slug}`;
-          const isCurrent = currentPath === href;
+          const isCategoryPagination = router.asPath.startsWith(`${href}/page`);
 
           return (
             <li key={category.sys.id}>
               <Link
                 href={href}
-                aria-current={isCurrent ? true : undefined}
                 className={`inline-block text-sm font-bold border border-black px-3 py-1 rounded-md transition ${
-                  isCurrent
+                  isCategoryPagination
                     ? 'bg-black text-white pointer-events-none'
                     : 'bg-white text-black hover:bg-black hover:text-white'
                 }`}

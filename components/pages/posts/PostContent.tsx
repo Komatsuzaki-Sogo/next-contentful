@@ -1,17 +1,20 @@
+import { useRouter } from 'next/router';
 import { Entry } from 'contentful';
 import { PostSkeleton } from '@/types/post';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import type { Document as RichTextDocument } from '@contentful/rich-text-types';
 import { BaseTime } from '@/components/atoms/BaseTime';
 import { BaseButton } from '@/components/atoms/BaseButton';
-import { useBackNavigation } from '@/hooks/useBackNavigation';
 
 type Props = {
   post: Entry<PostSkeleton>;
 };
 
 export const PostContent = ({ post }: Props) => {
-  const handleBack = useBackNavigation();
+  const router = useRouter();
+  const handleBack = () => {
+    router.back();
+  };
 
   return (
     <div className='mt-4'>
