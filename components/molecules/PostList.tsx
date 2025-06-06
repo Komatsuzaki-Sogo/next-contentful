@@ -14,7 +14,7 @@ const PostListItem = ({ post }: { post: Entry<PostSkeleton> }) => {
         <BaseLabel text={categoryTitle.toString()} />
         <BaseTime date={post.sys.createdAt} />
         </div>
-        <b className="block mt-2 text-xl font-semibold">
+        <b className="block mt-2 text-xl font-semibold truncate whitespace-nowrap overflow-hidden">
           {post.fields.title.toString()}
         </b>
       </Link>

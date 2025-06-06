@@ -3,6 +3,7 @@ import { client } from '@/libs/client';
 import { Entry } from 'contentful';
 import type { PostSkeleton, PostCategorySkeleton } from '@/types/post';
 import { BaseHeadingLevel1 } from '@/components/atoms/BaseHeadingLevel1';
+import { BaseText } from '@/components/atoms/BaseText';
 import { PostList } from '@/components/molecules/PostList';
 import { CategoryList } from '@/components/molecules/CategoryList';
 import { Pagination } from '@/components/molecules/Pagination';
@@ -30,12 +31,19 @@ const CategoryPage = ({
       <div>
         <BaseHeadingLevel1>{currentCategory.fields.title.toString()} の記事一覧</BaseHeadingLevel1>
         <CategoryList categories={categories} />
-        <PostList posts={posts} />
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          basePath={`/category/${currentCategory.fields.slug}`}
-          />
+
+        {posts.length > 0 ? (
+          <>
+            <PostList posts={posts} />
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              basePath={`/category/${currentCategory.fields.slug}`}
+            />
+          </>
+        ) : (
+          <BaseText><strong>マッチする記事がありませんでした。</strong></BaseText>
+        )}
       </div>
     </>
   );
@@ -57,7 +65,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } as any);
 
-    const totalPages = Math.ceil(postRes.total / PER_PAGE);
+    const totalPages = Math.max(1, Math.ceil(postRes.total / PER_PAGE));
 
     for (let page = 1; page <= totalPages; page++) {
       paths.push({
@@ -82,7 +90,7 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
   // カテゴリ一覧
   const categoryRes = await client.getEntries<PostCategorySkeleton>({
     content_type: 'postCategory',
-    order: ['-sys.createdAt'],
+    order: ['sys.createdAt'],
   });
 
   const currentCategory = categoryRes.items.find((c) => c.fields.slug === slug);

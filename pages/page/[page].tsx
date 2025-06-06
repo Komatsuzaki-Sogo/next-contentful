@@ -3,6 +3,7 @@ import { client } from '@/libs/client';
 import { Entry } from 'contentful';
 import type { PostSkeleton, PostCategorySkeleton } from '@/types/post';
 import { BaseHeadingLevel1 } from '@/components/atoms/BaseHeadingLevel1';
+import { BaseText } from '@/components/atoms/BaseText';
 import { PostList } from '@/components/molecules/PostList';
 import { CategoryList } from '@/components/molecules/CategoryList';
 import { Pagination } from '@/components/molecules/Pagination';
@@ -23,8 +24,15 @@ const PostPage = ({ posts, categories, currentPage, totalPages }: Props) => {
       <div>
         <BaseHeadingLevel1>記事一覧</BaseHeadingLevel1>
         <CategoryList categories={categories} />
-        <PostList posts={posts} />
-        <Pagination currentPage={currentPage} totalPages={totalPages} />
+
+        {posts.length > 0 ? (
+          <>
+            <PostList posts={posts} />
+            <Pagination currentPage={currentPage} totalPages={totalPages} />
+          </>
+        ) : (
+          <BaseText><strong>記事がありませんでした。</strong></BaseText>
+        )}
       </div>
     </>
   );
@@ -35,7 +43,7 @@ export default PostPage;
 export const getStaticPaths: GetStaticPaths = async () => {
   const res = await client.getEntries<PostSkeleton>({ content_type: 'post' });
   const total = res.total;
-  const totalPages = Math.ceil(total / PER_PAGE);
+  const totalPages = Math.max(1, Math.ceil(total / PER_PAGE));
 
   const paths = Array.from({ length: totalPages }, (_, i) => ({
     params: { page: (i + 1).toString() },
@@ -60,7 +68,7 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
 
   const categoryRes = await client.getEntries<PostCategorySkeleton>({
     content_type: 'postCategory',
-    order: ['-sys.createdAt'],
+    order: ['sys.createdAt'],
   });
 
   const totalPages = Math.ceil(postRes.total / PER_PAGE);
