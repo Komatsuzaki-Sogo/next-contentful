@@ -14,8 +14,8 @@ export const CategoryList = ({ categories }: Props) => {
   return (
     <div className='mt-8 flex gap-4 flex-col md:flex-row'>
       <b className='text-xl'>Category</b>
-      <ul className="flex flex-wrap gap-2">
-        <li>
+      <ul className="flex gap-2 overflow-y-auto">
+        <li className='flex-none'>
           <Link
             href='/'
             className={`inline-block text-sm border border-black px-3 py-1 rounded-md transition ${

@@ -10,7 +10,9 @@ export const Layout = ({ children }: LayoutProps) => {
   return (
     <div className='min-h-screen grid grid-rows-[auto_1fr_auto]'>
       <Header />
-      <main className='w-full max-w-[800px] mx-auto my-[40px] px-[16px] md:px-[40px]'>{children}</main>
+      <main className='grid grid-cols-[1fr_minmax(270px,800px)_1fr] gap-[16px]'>
+        <div className='col-start-2 col-end-3 my-[40px]'>{children}</div>
+      </main>
       <Footer />
     </div>
   );

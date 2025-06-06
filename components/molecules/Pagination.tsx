@@ -14,9 +14,9 @@ export const Pagination = ({ currentPage, totalPages, basePath = '' }: Props) =>
   };
 
   return (
-    <ul className="pagination flex gap-2 mt-16 justify-center">
+    <ul className="pagination flex flex-wrap gap-2 mt-16 justify-center">
       {currentPage > 1 && (
-        <li>
+        <li className='flex-none'>
           <Link href={getPageHref(currentPage - 1)} className="inline-block text-sm font-bold border border-black px-3 py-1 rounded-md transition bg-white text-black hover:bg-black hover:text-white">
             <span>前へ</span>
           </Link>
@@ -43,7 +43,7 @@ export const Pagination = ({ currentPage, totalPages, basePath = '' }: Props) =>
       })}
 
       {currentPage < totalPages && (
-        <li>
+        <li className='flex-none'>
           <Link href={getPageHref(currentPage + 1)} className="inline-block text-sm font-bold border border-black px-3 py-1 rounded-md transition bg-white text-black hover:bg-black hover:text-white">
             <span>次へ</span>
           </Link>
