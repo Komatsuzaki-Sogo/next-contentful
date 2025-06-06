@@ -6,6 +6,6 @@ type Props = {
 
 export const BaseText = ({ children }: Props) => {
   return (
-    <p className='mt-8'>{children}</p>
+    <p className='mt-8 text-center'>{children}</p>
   );
 };
