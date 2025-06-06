@@ -5,6 +5,7 @@ import { PostSkeleton } from '@/types/post';
 import { useRouter } from 'next/router';
 import { PostContent } from '@/components/pages/posts/PostContent';
 import { PostHeading } from '@/components/pages/posts/PostHeading';
+import { Meta } from '@/components/organisms/Meta';
 
 interface Props {
   post: Entry<PostSkeleton>;
@@ -18,10 +19,13 @@ const PostArticle = ({ post }: Props) => {
   }
 
   return (
-    <div>
-      <PostHeading post={post} />
-      <PostContent post={post} />
-    </div>
+    <>
+      <Meta title={'記事：' + post.fields.title} />
+      <div>
+        <PostHeading post={post} />
+        <PostContent post={post} />
+      </div>
+    </>
   );
 }
 

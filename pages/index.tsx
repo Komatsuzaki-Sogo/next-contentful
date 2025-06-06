@@ -9,6 +9,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
   };
 };
 
-export default function Home() {
-  return null;
-}
+const Home = () => null;
+
+export default Home;

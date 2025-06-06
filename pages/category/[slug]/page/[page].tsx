@@ -7,6 +7,7 @@ import { PostList } from '@/components/molecules/PostList';
 import { CategoryList } from '@/components/molecules/CategoryList';
 import { Pagination } from '@/components/molecules/Pagination';
 import { PER_PAGE } from '@/libs/perPage';
+import { Meta } from '@/components/organisms/Meta';
 
 interface Props {
   posts: Entry<PostSkeleton>[];
@@ -24,16 +25,19 @@ const CategoryPage = ({
   totalPages,
 }: Props) => {
   return (
-    <div>
-      <BaseHeadingLevel1>{currentCategory.fields.title.toString()} の記事一覧</BaseHeadingLevel1>
-      <CategoryList categories={categories} />
-      <PostList posts={posts} />
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        basePath={`/category/${currentCategory.fields.slug}`}
-      />
-    </div>
+    <>
+      <Meta title={currentCategory.fields.title + 'の記事一覧の' + currentPage + 'ページ'} />
+      <div>
+        <BaseHeadingLevel1>{currentCategory.fields.title.toString()} の記事一覧</BaseHeadingLevel1>
+        <CategoryList categories={categories} />
+        <PostList posts={posts} />
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          basePath={`/category/${currentCategory.fields.slug}`}
+          />
+      </div>
+    </>
   );
 };
 

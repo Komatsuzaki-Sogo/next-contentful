@@ -18,7 +18,7 @@ export const CategoryList = ({ categories }: Props) => {
         <li>
           <Link
             href='/'
-            className={`inline-block text-sm font-bold border border-black px-3 py-1 rounded-md transition ${
+            className={`inline-block text-sm border border-black px-3 py-1 rounded-md transition ${
               isRootMatch
                 ? 'bg-black text-white pointer-events-none'
                 : 'bg-white text-black hover:bg-black hover:text-white'
@@ -35,7 +35,7 @@ export const CategoryList = ({ categories }: Props) => {
             <li key={category.sys.id}>
               <Link
                 href={href}
-                className={`inline-block text-sm font-bold border border-black px-3 py-1 rounded-md transition ${
+                className={`inline-block text-sm border border-black px-3 py-1 rounded-md transition ${
                   isCategoryPagination
                     ? 'bg-black text-white pointer-events-none'
                     : 'bg-white text-black hover:bg-black hover:text-white'
