@@ -2,7 +2,6 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import { client } from '@/libs/client';
 import { Entry } from 'contentful';
 import { PostSkeleton } from '@/types/post';
-import { useRouter } from 'next/router';
 import { PostContent } from '@/components/pages/posts/PostContent';
 import { PostHeading } from '@/components/pages/posts/PostHeading';
 import { Meta } from '@/components/organisms/Meta';
@@ -12,12 +11,6 @@ interface Props {
 }
 
 const PostArticle = ({ post }: Props) => {
-  const router = useRouter();
-
-  if (router.isFallback) {
-    return <div>読み込み中...</div>;
-  }
-
   return (
     <>
       <Meta title={'記事：' + post.fields.title} />
@@ -42,7 +35,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths,
-    fallback: true,
+    fallback: false,
   };
 };
 
