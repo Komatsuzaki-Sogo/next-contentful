@@ -1,20 +1,43 @@
-import { GetServerSideProps } from 'next';
+import { GetStaticPaths, GetStaticProps } from 'next';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import { client } from '@/libs/client';
+import type { PostCategorySkeleton } from '@/types/post';
+import { Entry } from 'contentful';
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const slug = context.params?.slug;
+export const getStaticPaths: GetStaticPaths = async () => {
+  const categories = await client.getEntries<PostCategorySkeleton>({
+    content_type: 'postCategory',
+  });
 
-  if (typeof slug !== 'string') {
-    return { notFound: true };
-  }
+  const paths = categories.items.map((category: Entry<PostCategorySkeleton>) => ({
+    params: { slug: category.fields.slug as unknown as string },
+  }));
 
   return {
-    redirect: {
-      destination: `/category/${slug}/page/1`,
-      permanent: false,
-    },
+    paths,
+    fallback: false,
   };
 };
 
-const CategoryIndex = () => null;
+export const getStaticProps: GetStaticProps = async () => {
+  return {
+    props: {},
+  };
+};
+
+const CategoryIndex = () => {
+  const router = useRouter();
+  const { slug } = router.query;
+
+  useEffect(() => {
+    if (typeof slug === 'string') {
+      router.replace(`/category/${slug}/page/1`);
+    }
+  }, [slug, router]);
+
+  return null;
+};
 
 export default CategoryIndex;
+

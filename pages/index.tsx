@@ -1,14 +1,14 @@
-import { GetServerSideProps } from 'next';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  return {
-    redirect: {
-      destination: '/page/1',
-      permanent: false,
-    },
-  };
-};
+export const Home = () => {
+  const router = useRouter();
 
-const Home = () => null;
+  useEffect(() => {
+    router.replace('/page/1');
+  }, [router]);
+
+  return null;
+}
 
 export default Home;
